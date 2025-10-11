@@ -9,7 +9,7 @@ View(viremia)
 #name columns
 colnames(viremia) <- c("Bird","n","Family","Order","1","3","4","6")
 
-#choose sme colors
+#choose some colors
 cols <-c("black","grey",rainbow(26)[4:26])
 
 #Plot by species - did not work

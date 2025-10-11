@@ -1,7 +1,7 @@
 Warm-up mini-Report: Mosquito Blood Hosts in Salt Lake City, Utah
 ================
 Sophia Wheelton
-2025-10-03
+2025-10-11
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
@@ -13,34 +13,73 @@ Sophia Wheelton
   - [First Analysis and Plot](#first-analysis-and-plot)
   - [Second Analysis](#second-analysis)
 - [DISCUSSION](#discussion)
-  - [Interpretation - fill in
-    analysis](#interpretation---fill-in-analysis)
-  - [Interpretation - fill in
-    analysis/plot](#interpretation---fill-in-analysisplot)
+  - [Interpretation of First
+    Analysis](#interpretation-of-first-analysis)
+  - [Interpretation of Second
+    Analysis](#interpretation-of-second-analysis)
 - [CONCLUSION](#conclusion)
 - [REFERENCES](#references)
 
 # ABSTRACT
 
-Fill in abstract at the end after we have finished the methods, results,
-discussion, conclusions and know what our data “says”.
+West Nile Virus is potentially deadly upon infection. Mosquitoes get
+infected upon consuming a blood meal from certain birds and then
+transmitting it to their next blood meal host. These hosts could be
+other birds, or they could be humans. We sought to determine if there
+was a relationship between house finches and West Nile Virus in Salt
+Lake City. Specifically, we determined if house finches were important
+amplifying hosts of West Nile Virus. Analysis of house finch populations
+in areas (hot spots) with and without West Nile Virus visually suggested
+a relationship. This relationship was further statistically confirmed
+with a Generalized Linear Model (GLM) statistical test. The test showed
+that there was a significant difference between house finch blood meal
+counts in locations with and without West Nile Virus, implying that the
+relationship between house finches and West Nile Virus is predictive,
+and that the house finches are acting as amplifying hosts. As the blood
+meal counts of house finches in locations with West Nile virus is much
+larger than the blood meal counts of other birds in the same location,
+we can infer that house finches are especially important for
+amplification.
 
 # BACKGROUND
 
-Fill in some text here that provides background info on the WNV system,
-the blood meal DNA extractions, PCR, sequencing, etc. and the foundation
-for our question/hypothesis.
+West Nile Virus is typically spread from certain bird species to
+mosquitoes and back again. The mosquito collects a blood meal from an
+infected bird and then infects their next blood meal. While that next
+blood meal is typically a bird, the mosquito can also affect people and
+horses accidentally. In people, West Nile Virus is generally manageable.
+However, in some cases, it results in death. Research into the
+transmittability of West Nile Virus is important to help manage West
+Nile outbreaks and to educate the public so they can help protect
+themselves.
 
-For example, we can use the viremia duration (Kumar et al., 2003) bar
-plot (make sure to reference sources!!!) to illustrate the potential
-importance of house finches in WNV transmission and as the logical
-foundation for our hypothesis that house finches serve as amplifying
-hosts for WNV… and the prediction that locations with more house finches
-in our blood host analysis are also the same locations with higher
-positive tests for WNV in mosquito pools…
+A lot of th research related to West Nile Virus analyzes blood meal
+counts of different hosts of West Nile virus. To do this, DNA must be
+extracted and identified. PCR amplifies the extracted DNA through
+several cycles of heating and cooling in a Thermocycler. The DNA is
+denatured so that a primer can bind to it. DNA polymerase then
+replicates the strand. This denaturation and replication happens several
+times until there is enough DNA to be sequenced (“Polymerase chain
+reaction (PCR) fact sheet”, 2020). Sequencing can then be completed
+using numerous methods. MinION sequencing uses a nanopore sequencer to
+sequence the DNA, which is compiled using base-calling and aligned using
+read counting and a reference gene sequences. The cytochrome oxidase I
+(COI) gene is used to compare different species and individuals within a
+species. The COI can be identified using the GenBank database.
 
-NOTE: Examples of data you can plot for the background info at
-<https://github.com/saarman/BIOL3070/>
+By analyzing the DNA sequences of the blood meals of mosquitoes, the
+hosts of the West Nile Virus-infected mosquitoes can be identified.
+Using the viremia duration (Kumar et al., 2003) bar plot, we can
+visually determine the importance of house finches in WNV transmission.
+This provides the foundation for our hypothesis and prediction that
+house finches are important to the amplification of West Nile Virus, and
+that locations with more house finches will be predictive of West Nile
+Virus hot spots.
+
+The relationship between certain bird species and West Nile Virus
+transmission is crucial for prevention efforts. By knowing how the virus
+is spread, we can pay more attention to certain bird population
+locations and focus our preventative measures in those areas.
 
 ``` r
 # Manually transcribe duration (mean, lo, hi) from the last table column
@@ -78,37 +117,43 @@ arrows(duration$lo, bp, duration$hi, bp,
        angle=90, code=3, length=0.05, col="black", xpd=TRUE)
 ```
 
-<img src="Warm-up-mosquitoes-TEMPLATE_files/figure-gfm/viremia-1.png" style="display: block; margin: auto auto auto 0;" />
+<img src="Warm-up-mosquitoes-Wheelton_files/figure-gfm/viremia-1.png" style="display: block; margin: auto auto auto 0;" />
 
 # STUDY QUESTION and HYPOTHESIS
 
 ## Questions
 
-Fill in here, the question we want to answer… e.g. What bird species is
-acting as WNV amplifying host in Salt Lake City?
+What bird species is acting as WNV amplifying host in Salt Lake City?
 
 ## Hypothesis
 
-Fill in hypothesis… e.g. House finches are acting as important
-amplifying hosts of WNV in Salt Lake City.
+House finches are acting as important amplifying hosts of WNV in Salt
+Lake City.
 
 ## Prediction
 
-Fill in prediction… e.g. If house finches are acting as important
-amplifying hosts, we predict that trapping locations where mosquitoes
-feed on house finches will also have higher rates of confirmed WNV in
-tested mosquito pools.
+If house finches are acting as important amplifying hosts, we predict
+that trapping locations where mosquitoes feed on house finches will also
+have higher rates of confirmed WNV in tested mosquito pools.
 
 # METHODS
 
-Fill in here, including overview of procedure and methods used for this
-project.
+Mosquitoes were collected from several locations. We extracted blood
+meal DNA from a sample of mosquitoes, both with West Nile Virus and
+without. We then pipetted the collected DNA and controls into the wells
+of the PCR plate. A primer and DNA polymerase was added and the DNA was
+replicated in a Thermocycler. Using MinION sequencing, the mosquito COI
+sequence was compiled. We identified the DNA sequences using the NCBI
+BLASTn tool in the GenBank database. Finally, we plotted the data and
+performed a Generalized Linear Model (GLM) statistical test to analyze
+the results.
 
 ## First Analysis and Plot
 
 Horizontal plots:
 
 ``` r
+#This code creates a plot showing the frequency of different bird species at locations with and without West Nile Virus.
 ## import counts_matrix: data.frame with column 'loc_positives' (0/1) and host columns 'host_*'
 counts_matrix <- read.csv("./bloodmeal_plusWNV_for_BIOL3070.csv")
 
@@ -195,7 +240,7 @@ barplot(height = counts1,
         xlim = xlim_use)
 ```
 
-<img src="Warm-up-mosquitoes-TEMPLATE_files/figure-gfm/horiz-plot-1.png" style="display: block; margin: auto auto auto 0;" />
+<img src="Warm-up-mosquitoes-Wheelton_files/figure-gfm/horiz-plot-1.png" style="display: block; margin: auto auto auto 0;" />
 
 ``` r
 par(op)
@@ -207,9 +252,7 @@ host_species_colors <- species_colors
 ## Second Analysis
 
 ``` r
-## Fill in 2nd analysis/plot e.g. generalized linear model
-
-#Fill in here... Explain that you tested whether the presence or number of house finch blood meals predicts whether a site had WNV-positive pools (binary) or a higher WNV positivity rate (numeric). Mention that this statistical test lets you formally evaluate the relationship suggested by the barplots.
+#This code is for a Generalized Linear Model statistical test. The test determines whether the presence or number of house finch blood meals predicts whether a site had WNV-positive pools (binary) or a higher WNV positivity rate (numeric). This test is a formal evaluation of the relationship suggested in the plot from the first analysis. 
 
 # second-analysis-or-plot, glm with house finch alone against binary +/_
 glm1 <- glm(loc_positives ~ host_House_finch,
@@ -267,11 +310,54 @@ summary(glm2)
 
 # DISCUSSION
 
-## Interpretation - fill in analysis
+Overall, we found that there was a significant relationship between
+house finch populations and locations for West Nile Virus. This implies
+that house finches are important to the spread of West Nile Virus.
+However, there might be other confounding variables that might result in
+an increased population of both. For example, in suburban areas, there
+would be a higher population of house finches and a higher concentration
+of West Nile Virus in general. This would weaken the statistical
+connection between the two. Additional research should be done to
+analyze potential confounding variables. A possible limitation is that
+the data is only about Salt Lake City. The relationship should not be
+applied outside of the Salt Lake City Valley without further research.
 
-## Interpretation - fill in analysis/plot
+## Interpretation of First Analysis
+
+Visually, there is a significantly greater number of house finches
+(blood meal counts) in locations with West Nile Virus than there are in
+locations without. This plot shows that there is a relationship between
+house finches and West Nile Virus. While this could indicated that house
+finches are important in the spread of West Nile Virus, without
+performing a statistical test, we cannot claim that the relationship is
+not based on chance. The plot also does not tell us whether house
+finches can be predictive of West Nile Virus.
+
+## Interpretation of Second Analysis
+
+This GLM statistical test shows us that the relationship between house
+finches (blood meal counts) and West Nile Virus is significant.
+Specifically, the p-values are both significant at 6.07e-15 and
+4.54e-05. This means that more house finches will be associated with and
+predictive of more West Nile Virus, and that house finches are an
+important amplifying host for West Nile Virus in Salt Lake City.
 
 # CONCLUSION
+
+We found a statistically significant link between house finches
+population and hot spots for West Nile Virus when compared to house
+finch populations without West Nile Virus. This relationship is
+predictive. This shows that finches are acting as important amplifying
+hosts of West Nile Virus in Salt Lake City. Additional research should
+be done to identify and account for other confounding variables that
+might be present, or if the relationship is applicable outside the Salt
+Lake City Valley. Knowing what birds relate to increased spreadability
+of West Nile Virus can help us with certain preventative measures.
+Increased public awareness of the presence of certain bird species
+(i.e. house finches) in an area might help make people more aware of the
+risk of contracting West Nile Virus. This would further encourage them
+to protect themselves against mosquitoes during high-risk seasons for
+West Nile Virus.
 
 # REFERENCES
 
@@ -281,4 +367,7 @@ summary(glm2)
     Dis. 2003 Mar;9(3):311-22. <https://doi.org/10.3201/eid0903.020628>
 
 2.  ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions
-    such as plot() and to correct syntax errors. Accessed 2025-10-03.
+    such as plot() and to correct syntax errors. Accessed 2025-10-11.
+
+3.  Polymerase chain reaction (PCR) fact sheet. Genome.gov. (2020).
+    <https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet>
