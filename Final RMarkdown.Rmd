@@ -1,0 +1,49 @@
+---
+title: "Final RMarkdown"
+author: "Sophia Wheelton"
+date: "2025-??-??"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## General Information
+Question: How much does gene expression of CDKN2A differ between human breast cancer tissue and healthy human breat tissue?
+
+Hypothesis: We predict that the DNA from the tissue samples will differ significantly.
+
+Possible visualizations and test statistic(s): We can use a bar plot to show how many of individuals with the gene have cancer and how many individuals with cancer do not have the gene. The test statistic will probably be a t-test because there are only two datasets. 
+```{r cars}
+summary(cars)
+```
+
+## Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r eval=FALSE}
+# Load ggplot2
+library(ggplot2)
+
+# Create data
+#I need to go through and count the information myself because I cannot figure out how to upload the data set. 
+data <- data.frame(
+  name=c("Gene 1","Gene 2","Gene 3","Gene 4") ,  
+  value=c(3,12,5,18) #I need to update these numbers and titles
+  )
+
+# Barplot
+ggplot(data, aes(x=name, y=value)) + 
+  geom_bar(stat = "identity")
+
+#The data set also had R code available to make some plots, including a bar and whisker plot, but I have not figured out how to read in the data yet for the code to be helpful. This accompanying code chunk calculates a mean variance trend and determines a log2 relationship. 
+```
+

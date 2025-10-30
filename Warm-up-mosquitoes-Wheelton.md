@@ -1,8 +1,10 @@
 Warm-up mini-Report: Mosquito Blood Hosts in Salt Lake City, Utah
 ================
 Sophia Wheelton
-2025-10-11
+2025-10-27
 
+- [Scatterplot with line(s) of best
+  fit](#scatterplot-with-lines-of-best-fit)
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
 - [STUDY QUESTION and HYPOTHESIS](#study-question-and-hypothesis)
@@ -19,6 +21,83 @@ Sophia Wheelton
     Analysis](#interpretation-of-second-analysis)
 - [CONCLUSION](#conclusion)
 - [REFERENCES](#references)
+
+``` r
+# load data
+life_expectancy <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-12-05/life_expectancy.csv')
+```
+
+    ## `curl` package not installed, falling back to using `url()`
+    ## Rows: 20755 Columns: 4
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Entity, Code
+    ## dbl (2): Year, LifeExpectancy
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+# Linear regression years before 1883 (Koch's germ theory)
+lm_b1883 <- lm(LifeExpectancy ~ Year, data = life_expectancy[life_expectancy$Year < 1883,])
+summary(lm_b1883)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = LifeExpectancy ~ Year, data = life_expectancy[life_expectancy$Year < 
+    ##     1883, ])
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -23.204  -2.009   0.527   2.682  12.073 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) -7.294260   5.899927  -1.236    0.217    
+    ## Year         0.025738   0.003214   8.008 5.33e-15 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 4.979 on 654 degrees of freedom
+    ## Multiple R-squared:  0.08931,    Adjusted R-squared:  0.08791 
+    ## F-statistic: 64.13 on 1 and 654 DF,  p-value: 5.329e-15
+
+``` r
+# Linear regression years after 1883 (Koch's germ theory)
+lm_a1883 <- lm(LifeExpectancy ~ Year, data = life_expectancy[life_expectancy$Year > 1883,])
+summary(lm_a1883)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = LifeExpectancy ~ Year, data = life_expectancy[life_expectancy$Year > 
+    ##     1883, ])
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -52.007  -6.987   2.335   7.901  18.287 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) -4.781e+02  5.201e+00  -91.93   <2e-16 ***
+    ## Year         2.729e-01  2.626e-03  103.92   <2e-16 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 10.05 on 20083 degrees of freedom
+    ## Multiple R-squared:  0.3497, Adjusted R-squared:  0.3497 
+    ## F-statistic: 1.08e+04 on 1 and 20083 DF,  p-value: < 2.2e-16
+
+# Scatterplot with line(s) of best fit
+
+``` r
+plot(life_expectancy$Year,life_expectancy$LifeExpectancy, pch = 19, col = "grey", xlab = "Year of Birth", ylab = "Life Expectancy")
+abline(lm_b1883, lt = 3)
+abline(lm_a1883, lt = 1)
+```
+
+![](Warm-up-mosquitoes-Wheelton_files/figure-gfm/scatterplot-1.png)<!-- -->
 
 # ABSTRACT
 
@@ -367,7 +446,7 @@ West Nile Virus.
     Dis. 2003 Mar;9(3):311-22. <https://doi.org/10.3201/eid0903.020628>
 
 2.  ChatGPT. OpenAI, version Jan 2025. Used as a reference for functions
-    such as plot() and to correct syntax errors. Accessed 2025-10-11.
+    such as plot() and to correct syntax errors. Accessed 2025-10-27.
 
 3.  Polymerase chain reaction (PCR) fact sheet. Genome.gov. (2020).
     <https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet>

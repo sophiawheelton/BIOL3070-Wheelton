@@ -6,10 +6,30 @@ output:
   github_document: 
     toc: true
 ---
+```{r loading data}
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# load data
+life_expectancy <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-12-05/life_expectancy.csv')
 ```
+```{r regression}
+# Linear regression years before 1883 (Koch's germ theory)
+lm_b1883 <- lm(LifeExpectancy ~ Year, data = life_expectancy[life_expectancy$Year < 1883,])
+summary(lm_b1883)
+
+# Linear regression years after 1883 (Koch's germ theory)
+lm_a1883 <- lm(LifeExpectancy ~ Year, data = life_expectancy[life_expectancy$Year > 1883,])
+summary(lm_a1883)
+```
+
+# Scatterplot with line(s) of best fit
+
+```{r scatterplot}
+plot(life_expectancy$Year,life_expectancy$LifeExpectancy, pch = 19, col = "grey", xlab = "Year of Birth", ylab = "Life Expectancy")
+abline(lm_b1883, lt = 3)
+abline(lm_a1883, lt = 1)
+```
+
+
 # ABSTRACT
 West Nile Virus is potentially deadly upon infection. Mosquitoes get infected upon consuming a blood meal from certain birds and then transmitting it to their next blood meal host. These hosts could be other birds, or they could be humans. We sought to determine if there was a relationship between house finches and West Nile Virus in Salt Lake City. Specifically, we determined if house finches were important amplifying hosts of West Nile Virus. Analysis of house finch populations in areas (hot spots) with and without West Nile Virus visually suggested a relationship. This relationship was further statistically confirmed with a Generalized Linear Model (GLM) statistical test. The test showed that there was a significant difference between house finch blood meal counts in locations with and without West Nile Virus, implying that the relationship between house finches and West Nile Virus is predictive, and that the house finches are acting as amplifying hosts. As the blood meal counts of house finches in locations with West Nile virus is much larger than the blood meal counts of other birds in the same location, we can infer that house finches are especially important for amplification. 
 
