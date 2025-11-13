@@ -1,7 +1,7 @@
 Final RMarkdown
 ================
 Sophia Wheelton
-2025-11-12
+2025-11-13
 
 - [ABSTRACT](#abstract)
 - [BACKGROUND](#background)
@@ -109,6 +109,8 @@ BiocManager::install("GEOquery")
     ##     boot, class, cluster, codetools, foreign, KernSmooth, lattice, nlme, nnet,
     ##     rpart, spatial, survival
 
+    ## Old packages: 'digest'
+
 ``` r
 library(GEOquery)
 ```
@@ -165,6 +167,8 @@ BiocManager::install("limma")
     ##   packages:
     ##     boot, class, cluster, codetools, foreign, KernSmooth, lattice, nlme, nnet,
     ##     rpart, spatial, survival
+
+    ## Old packages: 'digest'
 
 ``` r
 library(limma)
@@ -254,6 +258,13 @@ tT2 <- topTable(fit2, adjust="fdr", sort.by="B", number=Inf)
 # summarize test results as "up", "down" or "not expressed"
 dT <- decideTests(fit2, adjust.method="fdr", p.value=0.05, lfc=0)
 
+#Expression Levels
+knitr::include_graphics("CD24 Cancer v Control.png")
+```
+
+<img src="CD24 Cancer v Control.png" width="1476" />
+
+``` r
 # Volcano plot (log P-value vs log fold change)
 colnames(fit2) # list contrast names
 ```
@@ -293,7 +304,7 @@ legend("bottomleft",
        bty = "n")
 ```
 
-![](Final-RMarkdown_files/figure-gfm/pressure-1.png)<!-- -->
+![](Final-RMarkdown_files/figure-gfm/pressure-2.png)<!-- -->
 
 ## SECOND ANALYSIS AND PLOT
 

@@ -112,6 +112,9 @@ tT2 <- topTable(fit2, adjust="fdr", sort.by="B", number=Inf)
 # summarize test results as "up", "down" or "not expressed"
 dT <- decideTests(fit2, adjust.method="fdr", p.value=0.05, lfc=0)
 
+#Expression Levels
+knitr::include_graphics("CD24 Cancer v Control.png")
+
 # Volcano plot (log P-value vs log fold change)
 colnames(fit2) # list contrast names
 ct <- 1  # choose contrast of interest
